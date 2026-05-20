@@ -53,6 +53,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/appinfofav.png" />
+        <link rel="shortcut icon" href="/appinfofav.png" />
         <link rel="apple-touch-icon" href="/appinfofav.png" />
       </head>
       <body>

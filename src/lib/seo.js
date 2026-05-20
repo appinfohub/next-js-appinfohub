@@ -52,7 +52,7 @@ export function webPageSchema({ title, description, path, image = defaultImage, 
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',
-        url: getCanonical('/favicon.ico'),
+        url: getCanonical('/appinfofav.png'),
       },
     },
     mainEntityOfPage: canonical,
