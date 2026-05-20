@@ -1,0 +1,10 @@
+/robots.txt  /robots.txt  200
+/_headers    /_headers    200
+/apps/*    /index.html   200
+/app/*     /index.html   200
+/games/*   /index.html   200
+/posts/*   /index.html   200
+/tools/*   /index.html   200
+/search    /index.html   200
+/admin/*   /index.html   200
+/*         /index.html   200

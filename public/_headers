@@ -1,0 +1,28 @@
+# Cache static assets for 1 year (hashed filenames in Vite)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache images for 1 year
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+# Explicit cache for main logo
+/appinfohublogo.png
+  Cache-Control: public, max-age=31536000, immutable
+/appinfohublogo2.png
+  Cache-Control: public, max-age=31536000, immutable
+# Cache CSS for 1 week
+/assets/*.css
+  Cache-Control: public, max-age=604800
+# Cache JS for 1 week
+/assets/*.js
+  Cache-Control: public, max-age=604800
+/*.ico
+  Cache-Control: public, max-age=2592000
+
+# HTML pages - revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate

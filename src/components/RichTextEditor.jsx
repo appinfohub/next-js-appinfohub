@@ -1,0 +1,41 @@
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
+
+const RichTextEditor = ({ value = '', onChange, placeholder = 'Enter content...' }) => {
+  const [content, setContent] = useState(value || '');
+  const editorRef = useRef(null);
+
+  useEffect(() => {
+    setContent(value || '');
+  }, [value]);
+
+  const handleInput = () => {
+    const html = editorRef.current?.innerHTML || '';
+    const normalized = html === '<br>' ? '' : html;
+    setContent(normalized);
+    if (onChange) onChange(normalized);
+  };
+
+  return (
+    <div className="relative">
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        className="min-h-[180px] rounded border border-gray-300 p-3 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white text-sm leading-6"
+        onInput={handleInput}
+        onBlur={handleInput}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+      {!content && (
+        <div className="pointer-events-none absolute inset-0 p-3 text-gray-400 text-sm leading-6">
+          {placeholder}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RichTextEditor;
+
