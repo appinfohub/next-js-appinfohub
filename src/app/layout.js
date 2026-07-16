@@ -1,7 +1,7 @@
 ﻿import "./globals.css";
 import ReduxProvider from "./providers/ReduxProvider";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://appinfohub.com";
+const siteUrl = "https://appinfohub.com";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
