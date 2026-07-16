@@ -1,149 +1,207 @@
-
 import React from 'react';
-import AdsSection from '../components/AdsSection';
 
+function PrivacyPolicy() {
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-8 text-gray-800 leading-relaxed font-sans">
+      <h1 className="text-3xl font-bold mb-6 text-gray-900 border-b pb-4">Privacy Policy</h1>
+      
+      <p className="mb-6">
+        The <strong className="text-gray-900">appinfohub.com (App Info Hub)</strong> is committed to protecting the privacy and security of all users who use our site. According to GDPR and EU user content policy, we update our cookies policy and privacy policy to explain how App Info Hub uses the data we collect from you when you use our website, how we will use it, and how to manage your cookies settings.
+      </p>
 
-const overviewItems = [
-  'What Are Cookies?',
-  'How Do We Use Cookies?',
-  'What Types of Cookies Do We Use?',
-  'Necessary Cookies',
-  'Analytics Cookies',
-  'Interest-Based Advertising',
-  'Third-Party Cookies',
-  'How to Opt out of Cookies?',
-  'Google Analytics Cookies Opt-out',
-  'Other Cookies Controls',
-  'Privacy Policy',
-  'What Data Do We Collect?',
-  'How Do We Use the Data?',
-  'What Will We Do If Track Abuse Occurs?',
-  'Property Claims',
-  'Safety Concern',
-  'Policy Change',
-  'Contact Us',
-];
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What Are Cookies?</h2>
+      <p className="mb-6">
+        Cookies are text files placed on your device to collect non-personal information like your device, operating system, browser type, and how you have interacted with our website. When you visit our website, we may collect information from you automatically through cookies or similar technology.
+      </p>
 
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">How Do We Use Cookies?</h2>
+      <p className="mb-6">
+        We use cookies to improve your experience on our website, including keeping you signed in, understanding how you use our website, and providing personalized advertising tailored to your interests. By default, your browser is set to allow cookies, but you can always choose to block cookies in your browser's settings.
+      </p>
 
-const PrivacyPolicy = () => (
-  <div className="w-full max-w-4xl mx-auto py-8 px-4">
-    <h1 className="text-3xl md:text-4xl font-bold text-indigo-700 mb-4 text-center">Privacy Policy</h1>
-    <div className="my-8"><AdsSection /></div>
-    <p className="text-gray-700 mb-4 text-sm text-center">Last Updated: February 2026</p>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">1. Information We Collect</h2>
-      <p>We may collect limited technical and usage-based information automatically when you access our website.</p>
-      <h3 className="font-semibold mt-4">1.1 Automatically Collected Data</h3>
-      <ul className="list-disc ml-6 mb-2">
-        <li>Device type, model, and operating system</li>
-        <li>Browser type, version, and language</li>
-        <li>IP address (non-precise)</li>
-        <li>Screen resolution and device identifiers</li>
-        <li>Pages visited and time spent on each page</li>
-        <li>Click patterns, scrolling, and navigation behavior</li>
-        <li>Referring URLs</li>
-        <li>General geographic region (city-level or country-level)</li>
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What Types of Cookies Do We Use?</h2>
+      
+      <div className="space-y-6 mb-8">
+        <div>
+          <h3 className="text-xl font-medium text-gray-900 mb-2">Necessary Cookies</h3>
+          <p className="text-gray-700">
+            Necessary Cookies are required to deliver the services you request on our website. These Cookies play an essential role in operating this site and displaying it correctly. These necessary Cookies cannot be disabled. Necessary cookies gather no information about your browsing habits.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-medium text-gray-900 mb-2">Analytics Cookies</h3>
+          <p className="text-gray-700">
+            We use Google Analytics Cookies to analyze and measure our audience, traffic, and engagement with the site. Upon your visit, cookies are automatically enabled on our site. You can opt out of these Analytics Cookies anytime by following the instructions below. For more information on how Google uses cookies, please check <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">here</a>.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-medium text-gray-900 mb-2">Interest-Based Advertising</h3>
+          <p className="text-gray-700 mb-3">
+            Interest-Based Advertising Cookies are used to analyze your interests and preferences, showing you personalized ads on this site or elsewhere and measuring the effectiveness of advertising. We, advertisers, ad-tech providers, and others may deploy these Interest-Based Advertising Cookies. You can withdraw your consent to Interest-Based Advertising Cookies by following the instructions below.
+          </p>
+          <p className="text-gray-700">
+            If you withdraw your consent to Interest-Based Advertising Cookies, certain features may not function correctly. You will see non-personalized ads instead of those based on your interests.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-medium text-gray-900 mb-3">Third-Party Cookies</h3>
+          <p className="text-gray-700 mb-6">
+            Some of the cookies on the website are operated by third parties. Some third-party links are designed to automatically transmit users' information onto the third party's landing page when you choose to "click" upon a third party's advertisement or promotion. We have no control over these third parties or their use of cookies. Please check the websites of these third parties for detailed information on how they use cookies. Besides cookies, technologies like pixel tags, web beacons, and eTags may also improve our understanding of site traffic, visitor behavior, and promotional campaigns.
+          </p>
+
+          {/* Table representation exactly matching your layout */}
+          <div className="overflow-x-auto my-6 border border-gray-200 rounded-lg shadow-sm">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-4 text-left text-sm font-semibold text-gray-900 border-r border-gray-200 w-1/4">
+                    Cookie
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-sm font-semibold text-gray-900 border-r border-gray-200 w-1/4">
+                    Type
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr className="align-top">
+                  <td className="px-6 py-4 text-sm text-gray-700 font-medium border-r border-gray-200">
+                    Google Analytics, Google AdSense, DoubleClick
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700 border-r border-gray-200">
+                    Site analytics (Google Analytics)
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600 leading-relaxed">
+                    Google operates the Google Display Network, a collection of millions of websites and mobile applications powered by display advertising, including many Google services like YouTube. Google also uses the DoubleClick digital advertising platform, the ad technology foundation, to create, transact, and manage digital advertising for the world's buyers, creators, and sellers. The DoubleClick platform includes the DoubleClick Advertising Exchange and DoubleClick Bid Manager. To learn more about how Google collects and uses information for online advertising, please visit{' '}
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">
+                      Google Privacy & Terms
+                    </a>
+                    .
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">How to Opt out of Cookies?</h2>
+      <p className="mb-4">
+        We provide several opt-out solutions if you want to withdraw your consent. It should be noted that certain website features may not function correctly if you set your browser not to accept cookies. Besides, you will still see advertising, although it may not be tailored to your interests using information collected from cookies and similar technologies.
+      </p>
+      <p className="mb-6">
+        If you don't want us to use cookies when you visit this site,{' '}
+        <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+          click here
+        </a>{' '}
+        for information on changing your browser settings to reject cookies. Disabling these cookies won't turn off advertising on our websites, and you will see non-personalized ads instead of targeted ads.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">Google Analytics Cookies Opt-out</h3>
+      <p className="mb-4">
+        This{' '}
+        <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+          opt-out browser add-on
+        </a>{' '}
+        can be helpful if you want to turn off Google Analytics cookies.
+      </p>
+      <p className="mb-6">
+        <a href="https://safety.google/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+          Google Safety Centre
+        </a>{' '}
+        also provides a tool enabling you to control the data used to serve ads.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-3">Other Cookies Controls</h3>
+      <p className="mb-4">
+        If you want to block other cookies, you can use the browser-level cookie controls. Most browsers allow you to manage your cookie settings, which can usually be found in the "Settings", "Options" or "Preferences" menu of your browser.
+      </p>
+      <ul className="list-disc pl-6 mb-8 space-y-2 text-blue-600">
+        <li>
+          <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Manage cookie settings in Chrome
+          </a>
+        </li>
+        <li>
+          <a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Manage cookie settings in Firefox
+          </a>
+        </li>
+        <li>
+          <a href="https://support.microsoft.com/en-us/windows/delete-and-manage-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Manage cookie settings in Internet Explorer
+          </a>
+        </li>
+        <li>
+          <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Manage cookie settings in Microsoft Edge
+          </a>
+        </li>
+        <li>
+          <a href="https://support.apple.com/en-us/HT201265" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Manage cookie settings in Safari iOS
+          </a>
+        </li>
       </ul>
-      <p>This data helps us maintain site performance and improve user experience.</p>
-      <h3 className="font-semibold mt-4">1.2 Cookies & Tracking Technologies</h3>
-      <ul className="list-disc ml-6 mb-2">
-        <li>Cookies</li>
-        <li>Web beacons</li>
-        <li>Pixel tags</li>
-        <li>eTags</li>
-        <li>Local storage technologies</li>
+
+      <hr className="my-8 border-gray-200" />
+
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Privacy Policy</h2>
+      <p className="mb-6">
+        Besides cookies technology, App Info Hub collects and manages user data according to the following policy. By using the website, you agree to the terms of this privacy policy.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">What Data Do We Collect?</h3>
+      <p className="mb-6">
+        We collect information about you and your device when you access our website. For instance, when visiting our website, we log your device operating system name and version, manufacturer and model, browser type, browser language, screen resolution, the website you visited before browsing our website, pages you viewed, how long you spent on a page, access times and information about your use of and actions on our website.
+      </p>
+      <p className="mb-6">
+        This information allows us to optimize our website and ensure we provide the best possible experience for our users.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">How Do We Use the Data?</h3>
+      <p className="mb-4">We may use your data as follows:</p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-700">
+        <li>to operate, maintain, and improve our website, products, and services;</li>
+        <li>to manage and administer our rewards program and other promotions you participate in on our website;</li>
+        <li>to send information, including technical notices, updates, security alerts, and support and administrative messages.</li>
       </ul>
-      <p>These tools help analyze traffic, personalize browsing, support security, and display relevant advertising. You can manage or block cookies at any time via your browser settings.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">2. Use of Collected Information</h2>
-      <ul className="list-disc ml-6 mb-2">
-        <li>Website Functionality: To operate, maintain, and improve site performance, navigation, and accessibility.</li>
-        <li>Analytics: To analyze traffic patterns, measure engagement, and optimize content.</li>
-        <li>Advertising: To display non-intrusive, interest-based ads served by trusted networks such as Google Ads.</li>
-        <li>Communication: To send technical notices, service updates, and respond to user inquiries.</li>
-        <li>Security: To detect, prevent, and address fraud, abuse, or harmful activities.</li>
-      </ul>
-      <p>We do not sell, rent, or trade personal data under any circumstances.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">3. Cookies Policy</h2>
-      <h3 className="font-semibold mt-4">3.1 Types of Cookies We Use</h3>
-      <ul className="list-disc ml-6 mb-2">
-        <li><b>Necessary Cookies:</b> Enable core website functions and ensure smooth operation. Cannot be disabled.</li>
-        <li><b>Analytics Cookies:</b> Used to understand how users interact with the website. We primarily use Google Analytics.</li>
-        <li><b>Advertising Cookies:</b> Used by third-party ad networks to show relevant ads and measure performance.</li>
-        <li><b>Third-Party Cookies:</b> Some cookies originate from external partners (e.g., Google Ads). We do not control these cookies.</li>
-      </ul>
-      <h3 className="font-semibold mt-4">3.2 How to Manage or Opt Out of Cookies</h3>
-      <ul className="list-disc ml-6 mb-2">
-        <li>You may block or delete cookies through your browser:</li>
-        <li>Chrome � Settings ? Privacy</li>
-        <li>Firefox � Preferences ? Privacy & Security</li>
-        <li>Edge � Settings ? Cookies & Site Permissions</li>
-        <li>Safari � Preferences ? Privacy</li>
-        <li>To disable Google Analytics: Google provides an official browser add-on allowing you to opt out of Analytics tracking.</li>
-        <li>To disable interest-based ads: Use Google Ads Settings or industry tools such as YourAdChoices.</li>
-        <li>Disabling cookies will not stop ads entirely � you will see non-personalized ads instead.</li>
-      </ul>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">4. How We Protect Your Data</h2>
-      <ul className="list-disc ml-6 mb-2">
-        <li>Secure servers</li>
-        <li>Strict data-access controls</li>
-        <li>Encryption where appropriate</li>
-        <li>Continuous security monitoring</li>
-      </ul>
-      <p>We do not request sensitive data such as:</p>
-      <ul className="list-disc ml-6 mb-2">
-        <li>? Credit or debit card information</li>
-        <li>? Passwords</li>
-        <li>? Banking details</li>
-        <li>? Biometric identifiers</li>
-      </ul>
-      <p>AppInfoHub.com does not alter your device settings or install any software.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">5. Advertising & Third-Party Services</h2>
-      <p>AppInfoHub.com does not work directly with advertisers. All ads are served automatically by trusted ad networks such as Google Ads. We do not control the content or accuracy of third-party ads. Clicking an external advertisement may redirect you to a third-party website with its own privacy practices. We recommend reviewing each third party�s privacy and cookie policy.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">6. Children�s Privacy</h2>
-      <p>Our platform is not intended for individuals under the age of 13. We do not knowingly collect personal data from children. If we learn that information has been collected from a minor, we will delete it promptly.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">7. International Data Transfers</h2>
-      <p>Your data may be processed on servers located outside your country. By using our website, you consent to such transfers as permitted by applicable law.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">8. Your Rights</h2>
-      <ul className="list-disc ml-6 mb-2">
-        <li>Access your data</li>
-        <li>Request correction of inaccurate data</li>
-        <li>Request deletion (right to be forgotten)</li>
-        <li>Restrict or object to processing</li>
-        <li>Opt out of targeted advertising</li>
-        <li>Request copies of stored information</li>
-        <li>Withdraw cookie consent at any time</li>
-      </ul>
-      <p>To exercise these rights, contact us using the information below.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">9. Policy Updates</h2>
-      <p>We may update this Privacy Policy periodically to reflect changes in laws, updates in technology, website improvements, and advertising requirements. The �Last Updated� date will always indicate when the latest version was implemented.</p>
-    </section>
-    <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-2">10. Contact Us</h2>
-      <p>If you have questions about this Privacy Policy or wish to exercise your privacy rights, you may contact us at:</p>
-      <p className="font-semibold text-indigo-700">📧 support@appinfohub.com</p>
-      <p>We respond promptly and responsibly to all inquiries.</p>
-    </section>
-    <AdsSection />
-  </div>
-);
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">What Will We Do If Track Abuse Occurs?</h3>
+      <p className="mb-6">
+        We will disclose information we have when required by law, for example, in response to a court order. We may disclose such information in response to a law enforcement agency's request.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">Property Claims</h3>
+      <p className="mb-6">
+        The trademarks and logos of all the merchants displayed on the website are the property of their respective owners. The website is not affiliated or associated with any of them.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">Safety Concern</h3>
+      <p className="mb-6">
+        Please be assured that this site only provides free app reviews and original apk files download without cheating, modifications, or viruses. Your personal information will NOT be shared with any other third party without your permission.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">Policy Change</h3>
+      <p className="mb-6">
+        We may amend this privacy policy from time to time. Use of information we collect now is subject to the privacy policy in effect at the time such information is used. Users are bound by any changes to the privacy policy when they use the services after such changes have been first posted.
+      </p>
+
+      <h3 className="text-xl font-medium text-gray-900 mb-2">Contact Us</h3>
+      <p className="mb-6">
+        If you have any questions about this privacy policy or the data we hold on you, please do not hesitate to contact us through{' '}
+        <a href="mailto:support@appinfohub.com" className="text-blue-600 hover:underline font-medium">
+          support@appinfohub.com
+        </a>
+        .
+      </p>
+    </div>
+  );
+}
 
 export default PrivacyPolicy;
-
-
-

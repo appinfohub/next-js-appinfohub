@@ -5,6 +5,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://appinfohub.com";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
+
+  
   title: {
     default: "AppInfoHub - Safe APK Downloads & App Reviews",
     template: "%s | AppInfoHub",
