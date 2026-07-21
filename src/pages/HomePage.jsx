@@ -7,10 +7,12 @@ import AppsSection from "../components/AppsSection";
 import { useGetAppsByCategoriesQuery } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllApps } from "../store";
+import CategoriesSection from "../components/CategoriesSection";
+import HomeAppSection from "@/components/HomeAppSection";
 
 const CATEGORIES = [
-  "Top Apps", "Popular Apps", "Desktop", "Finance",
-  "Entertainment", "Communication", "Tools", "Shopping", "Food"
+  "Top Apps", "Desktop",
+  
 ];
 
 const HomePage = () => {
@@ -37,19 +39,32 @@ const HomePage = () => {
 
     return (
         <>
-            <HeroSection />
+            {/* <HeroSection /> */}
             <div className="my-8">
                 <AdsSection />
             </div>
 
-            {CATEGORIES.map((cat, i) => (
+            {/* {CATEGORIES.map((cat, i) => (
               <React.Fragment key={cat}>
                 <AppsSection category={cat} batchApps={batchData?.[cat]} />
                 <div className="my-8">
                   <AdsSection />
                 </div>
               </React.Fragment>
-            ))}
+            ))} */}
+
+            <AppsSection category="Top Apps"  />
+
+
+          
+             <HomeAppSection category="Tools"/>
+  <HomeAppSection category="desktop"/>
+
+
+            <CategoriesSection />
+  <HomeAppSection category="Action"/>
+            <HomeAppSection category="Finance"/>
+            
         </>
     );
 };

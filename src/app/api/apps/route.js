@@ -3,15 +3,60 @@ import connectDB from '@/backend/config/db';
 import App from '@/backend/models/App';
 import { verifyAdmin } from '@/backend/middleware/auth';
 
+const APP_CATEGORIES = [
+  'Top Apps', 'Popular Apps', 'Desktop', 'Finance', 'Entertainment', 'Communication', 'Tools',
+  'Shopping', 'Food', 'Audio', 'Personalization', 'Lifestyle', 'Travel', 'Maps', 'Productivity',
+  'Video', 'Education', 'Business', 'Social', 'Medical', 'Reference', 'Weather', 'Housing',
+  'Art', 'News', 'Vehicles', 'Photography', 'Dating', 'Comics', 'Beauty', 'Parenting'
+];
+
+const GAME_CATEGORIES = [
+  'Action', 'Adventure', 'Board', 'Card', 'Casual', 'Demo', 'Music', 'Puzzle', 'Role Playing',
+  'Sports', 'Word', 'Arcade', 'Racing', 'Strategy', 'Educational', 'Casino'
+];
+
+const normalize = (value) => String(value || '').trim().toLowerCase();
+const categoryMatchesAny = (category, categories) => {
+  if (!category) return false;
+  const normalized = normalize(category);
+  return categories.some((cat) => normalize(cat) === normalized);
+};
+
+const buildTypeFilter = (type) => {
+  const normalizedType = normalize(type);
+  if (normalizedType === 'game' || normalizedType === 'games') {
+    return { category: { $in: GAME_CATEGORIES } };
+  }
+  if (normalizedType === 'app' || normalizedType === 'apps') {
+    return { category: { $in: APP_CATEGORIES } };
+  }
+  return {};
+};
+
+const buildSortOptions = (sortBy, sortOrder) => {
+  const normalizedSortBy = String(sortBy || '').trim();
+  const direction = String(sortOrder || '').toLowerCase() === 'asc' ? 1 : -1;
+  if (!normalizedSortBy) {
+    return { rating: -1, createdAt: -1 };
+  }
+  return { [normalizedSortBy]: direction, rating: -1, createdAt: -1 };
+};
+
 export async function GET(req) {
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');
+    const type = searchParams.get('type');
+    const sortBy = searchParams.get('sortBy');
+    const sortOrder = searchParams.get('sortOrder');
     const search = searchParams.get('search');
     const page = parseInt(searchParams.get('page'), 10) || 1;
     const limit = parseInt(searchParams.get('limit'), 10) || 20;
     const skip = (page - 1) * limit;
+
+    const typeFilter = buildTypeFilter(type);
+    const sortOptions = buildSortOptions(sortBy, sortOrder);
 
     if (search) {
       const searchTerm = search.toLowerCase();
@@ -84,6 +129,12 @@ export async function GET(req) {
         pipeline[0].$match.category = { $regex: category, $options: 'i' };
       }
 
+      if (typeFilter.category) {
+        pipeline[0].$match.category = pipeline[0].$match.category
+          ? { $and: [pipeline[0].$match.category, typeFilter.category] }
+          : typeFilter.category;
+      }
+
       const apps = await App.aggregate([
         ...pipeline,
         { $skip: skip },
@@ -100,7 +151,8 @@ export async function GET(req) {
               { description2: searchRegex },
               { description3: searchRegex }
             ],
-            ...(category && { category: { $regex: category, $options: 'i' } })
+            ...(category && { category: { $regex: category, $options: 'i' } }),
+            ...(typeFilter.category && { category: typeFilter.category })
           }
         },
         {
@@ -120,15 +172,18 @@ export async function GET(req) {
       });
     }
 
-    // No search - just category filter
-    let filter = {};
+    // No search - just category/type filters
+    let filter = { ...typeFilter };
     if (category) {
       filter.category = { $regex: category, $options: 'i' };
+      if (typeFilter.category) {
+        filter.category = { $and: [filter.category, typeFilter.category] };
+      }
     }
 
     const [apps, total] = await Promise.all([
       App.find(filter)
-        .sort({ rating: -1, createdAt: -1 })
+        .sort(sortOptions)
         .skip(skip)
         .limit(limit),
       App.countDocuments(filter)

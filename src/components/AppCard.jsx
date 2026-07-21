@@ -1,63 +1,57 @@
-import React from 'react';
-import { FaStar } from 'react-icons/fa';
-import Link from "next/link";
-import { optimizeCloudinaryURL } from '../utils/cloudinaryOptimizer';
+'use client';
 
-const AppCard = ({ app, idx }) => {
-  // Extract category from description1 table
-  let categoryValue = app.category;
-  if (app.description1) {
-    const match = app.description1.match(/<td[^>]*>\s*Category\s*<\/td>\s*<td[^>]*>(.*?)<\/td>/i);
-    if (match) categoryValue = match[1];
-  }
-  // Slugify app name for details page
+import React from 'react';
+import Link from 'next/link';
+import { HiDownload, HiStar } from 'react-icons/hi';
+import { isGameCategory } from '../utils/categoryTypeFilters';
+
+const AppCard = ({ app, index }) => {
   const slug = app.name ? app.name.toLowerCase().replace(/\s+/g, '-') : '';
-  // Optimize icon: displayed at 48-56px, fetch at w_100 (2x for retina)
-  const iconSrc = optimizeCloudinaryURL(app.icon, 100);
-  
+  const routeBase = isGameCategory(app.category) ? '/game' : '/app';
+
   return (
-    <Link href={`/app/${encodeURIComponent(slug)}`} className="block group" style={{ textDecoration: 'none' }}>
-      <div className="bg-white rounded-lg md:rounded-2xl shadow-sm hover:shadow-lg transition-shadow border border-gray-100 group-hover:border-indigo-400 p-3 md:p-4 h-full">
-        <div className="flex items-start gap-2 md:gap-4">
-          {/* Icon - responsive size */}
-          <img 
-            src={iconSrc} 
-            alt={app.name} 
-            className="w-12 h-12 md:w-14 md:h-14 rounded-lg md:rounded-xl object-cover border border-gray-200 bg-gray-100 shrink-0"
-            loading="lazy"
-            width="56"
-            height="56"
-          />
+    <div className="flex items-center gap-3 p-1.5 rounded-xl hover:bg-gray-50/80 transition duration-150 group">
+      {/* Index Rank Number */}
+      <span className="w-4 text-right text-sm font-medium text-gray-300 shrink-0">
+        {index}
+      </span>
+
+      {/* App Icon */}
+      <Link href={`${routeBase}/${encodeURIComponent(slug)}`} className="shrink-0">
+        <img
+          src={app.icon || '/placeholder.png'}
+          alt={app.name}
+          className="w-12 h-12 rounded-2xl object-cover border border-gray-100 shadow-xs bg-gray-50"
+        />
+      </Link>
+
+      {/* Title, Category & Star Rating */}
+      <div className="flex-1 min-w-0">
+        <Link href={`${routeBase}/${encodeURIComponent(slug)}`}>
+          <h3 className="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-blue-600 truncate transition leading-snug">
+            {app.name}
+          </h3>
+        </Link>
+        
+        <div className="flex items-center justify-between text-[11px] text-gray-400 mt-0.5">
+          <span className="truncate max-w-[90px]">{app.category || 'App'}</span>
           
-          {/* Content */}
-          <div className="flex-1 min-w-0">
-            {/* Title with number */}
-            <h3 className="font-semibold text-sm md:text-lg text-gray-800 truncate mb-1">
-              <span className="text-indigo-600">#{idx + 1}</span> {app.name}
-            </h3>
-            
-            {/* Category Badge */}
-            <span className="inline-block px-1.5 md:px-2 py-0.5 text-xs rounded bg-blue-100 text-blue-700 font-medium mb-1.5 truncate max-w-30">
-              {categoryValue}
-            </span>
-            
-            {/* Rating and Downloads Row */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <div className="flex items-center gap-1">
-                <FaStar className="text-yellow-500 text-sm" />
-                <span className="text-gray-700 text-xs md:text-sm font-semibold">{app.rating}</span>
-              </div>
-              
-              {app.downloads && (
-                <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-medium whitespace-nowrap">
-                  {app.downloads}
-                </span>
-              )}
-            </div>
+          <div className="flex items-center gap-0.5 font-semibold text-gray-600 shrink-0 ml-1">
+            <span>{app.rating ? Number(app.rating).toFixed(1) : '4.5'}</span>
+            <HiStar className="size-3 text-gray-400" />
           </div>
         </div>
       </div>
-    </Link>
+
+      {/* Download Button Icon */}
+      <Link
+        href={`${routeBase}/${encodeURIComponent(slug)}`}
+        className="p-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg shrink-0 transition"
+        aria-label={`Download ${app.name}`}
+      >
+        <HiDownload className="size-3.5" />
+      </Link>
+    </div>
   );
 };
 

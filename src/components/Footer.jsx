@@ -5,40 +5,52 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-12">
-      {/* Container with standard max width to align perfectly with your content */}
-      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 py-12 flex flex-col gap-6">
+    <footer className="bg-[#f7f7f7] border-t border-gray-200 mt-12 py-10 font-sans">
+      {/* Main Container */}
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         
-        {/* Logo - increased height from h-9 to h-12 for better visibility */}
-        <div className="flex items-center">
-          <img
-            src="/appinfohublogo.png"
-            alt="AppInfoHub Logo"
-            className="h-12 w-auto object-contain" 
-          />
+        {/* Left Column: Logo, Copyright & Horizontal Nav Links */}
+        <div className="flex flex-col gap-6">
+          
+          {/* Logo & Copyright Inline */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
+            <img
+              src="/appinfohublogo.png"
+              alt="AppInfoHub Logo"
+              className="h-9 w-auto object-contain" 
+            />
+            <span className="text-sm text-gray-500">
+              Copyright © {new Date().getFullYear()} AppInfoHub. All rights reserved.
+            </span>
+          </div>
+
+          {/* Horizontal Navigation Links */}
+          <nav className="flex flex-wrap items-center gap-6 sm:gap-8 text-sm text-gray-700 font-semibold">
+            <Link href="/about-us" className="hover:text-blue-600 transition-colors">
+              About Us
+            </Link>
+            <Link href="/disclaimer" className="hover:text-blue-600 transition-colors">
+              Guidance
+            </Link>
+            <Link href="/privacy-policy" className="hover:text-blue-600 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-blue-600 transition-colors">
+              Terms of Service
+            </Link>
+          </nav>
         </div>
 
-        {/* Vertical links - text size increased to text-base (16px) with comfortable vertical gaps */}
-        <nav className="flex flex-col space-y-3.5 text-base text-gray-800 font-medium">
-          <Link href="/about-us" className="hover:text-blue-600 transition w-fit">
-            About Us
-          </Link>
-          <Link href="/privacy-policy" className="hover:text-blue-600 transition w-fit">
-            Privacy Policy
-          </Link>
-          <Link href="/terms-of-service" className="hover:text-blue-600 transition w-fit">
-            Terms of Service
-          </Link>
-          <Link href="/disclaimer" className="hover:text-blue-600 transition w-fit">
-            Disclaimer
-          </Link>
-        </nav>
-
-        {/* Copyright - text size increased to 14px (text-sm) with standard spacing */}
-        <div className="text-sm text-gray-500 pt-2">
-          <span>Copyright {new Date().getFullYear()} © AppInfoHub. All Rights Reserved.</span>
+        {/* Right Column: Company Tagline Branding */}
+        <div className="flex flex-col text-left md:text-right">
+          <h4 className="text-sm font-bold text-gray-800">
+            APPINFOHUB
+          </h4>
+          <p className="text-xs text-gray-500 mt-0.5">
+            We Build Online Service With Best User Experience
+          </p>
         </div>
-        
+
       </div>
     </footer>
   );
