@@ -8,6 +8,7 @@ import DownloadButtons from "../components/DownloadButtons";
 import AppCard from '../components/AppCard';
 import { FaChevronLeft, FaChevronRight, FaDownload } from 'react-icons/fa';
 import { FaTag, FaCodeBranch, FaCalendarAlt, FaUserTie, FaShieldAlt, FaDollarSign } from 'react-icons/fa';
+import { HiStar } from 'react-icons/hi';
 
 const AppDetailsPage = ({ slug: rawSlug }) => {
   const slug = rawSlug ? String(rawSlug).toLowerCase() : '';
@@ -288,19 +289,51 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
             />
           </div>
 
-          {/* You May Like Grid Section */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Like</h2>
-            {desc1MatchedApps.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {desc1MatchedApps.map((a, idx) => (
-                  <AppCard key={a._id || idx} app={a} index={idx + 1} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500">No related items found.</p>
-            )}
-          </div>
+      {/* You May Like Grid Section */}
+<div className="mt-12">
+  <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Like</h2>
+  {desc1MatchedApps.length > 0 ? (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-6">
+      {desc1MatchedApps.map((a, idx) => {
+        const slug = a.name ? a.name.toLowerCase().replace(/\s+/g, '-') : '';
+        return (
+          <Link
+            key={a._id || idx}
+            href={`/app/${encodeURIComponent(slug)}`}
+            className="group flex flex-col items-start text-left transition-transform duration-150 hover:-translate-y-1"
+          >
+            {/* App Icon */}
+            <div className="w-full aspect-square rounded-[22%] overflow-hidden bg-gray-100 mb-2 shadow-sm border border-gray-100/60">
+              <img
+                src={a.icon || '/placeholder.png'}
+                alt={a.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+              />
+            </div>
+
+            {/* App Name */}
+            <h3 className="w-full text-sm font-semibold text-gray-900 truncate leading-tight group-hover:text-blue-600 transition-colors">
+              {a.name}
+            </h3>
+
+            {/* Category */}
+            <p className="text-xs text-gray-500 mt-0.5 truncate w-full">
+              {a.category || 'Casual'}
+            </p>
+
+            {/* Rating & Star */}
+            <div className="flex items-center gap-1 mt-1 text-xs text-gray-600 font-medium">
+              <span>{a.rating ? Number(a.rating).toFixed(1) : '4.5'}</span>
+              <HiStar className="size-3.5 text-gray-500" />
+            </div>
+          </Link>
+        );
+      })}
+    </div>
+  ) : (
+    <p className="text-sm text-gray-500">No related items found.</p>
+  )}
+</div>
         </div>
 
         {/* Sidebar Ranking Area */}

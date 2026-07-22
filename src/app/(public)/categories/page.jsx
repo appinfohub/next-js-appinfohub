@@ -45,7 +45,8 @@ import {
   HeartHandshake,
   Book,
   Sparkles,
-  Baby
+  Baby,
+  ChevronRight
 } from 'lucide-react';
 
 // Games Categories Configuration
@@ -101,7 +102,7 @@ const appCategories = [
   { name: 'Parenting', icon: Baby },
 ];
 
-// Helper to format category names into URL slugs (e.g., "Role Playing" -> "role_playing")
+// Helper to format category names into URL slugs
 const getCategorySlug = (name) => {
   return name.toLowerCase().replace(/\s+/g, '_');
 };
@@ -109,10 +110,18 @@ const getCategorySlug = (name) => {
 export default function CategoriesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 bg-white min-h-screen">
+      
       {/* Apps Section */}
-      <section className="mb-12">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Apps</h1>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <section className="mb-10">
+        <div className="flex items-center gap-2 mb-5">
+          <h1 className="text-xl font-bold text-gray-900 tracking-tight">Apps Categories</h1>
+          <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">
+            {appCategories.length}
+          </span>
+        </div>
+
+        {/* 6 Columns Grid on Desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
           {appCategories.map((category) => {
             const Icon = category.icon;
             const slug = getCategorySlug(category.name);
@@ -121,18 +130,18 @@ export default function CategoriesPage() {
               <Link
                 key={category.name}
                 href={`/${slug}`}
-                className="group relative flex flex-col justify-between p-4 h-28 bg-[#e8f2fe] rounded-2xl overflow-hidden hover:bg-[#d9e8fd] transition-colors duration-200"
+                className="group relative flex flex-col justify-between p-3.5 h-24 bg-gradient-to-br from-blue-50/60 to-slate-50 border border-blue-100/70 rounded-xl overflow-hidden hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
-                {/* Background Large Icon Watermark */}
-                <Icon className="absolute -right-3 -bottom-3 w-20 h-20 text-blue-200/40 pointer-events-none group-hover:scale-110 transition-transform duration-300" />
+                {/* Background Large Watermark Icon */}
+                <Icon className="absolute -right-2 -bottom-2 w-16 h-16 text-blue-500/10 pointer-events-none group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300" />
 
-                {/* Top Small Icon Container */}
-                <div className="w-9 h-9 rounded-full bg-white/80 flex items-center justify-center text-blue-600 shadow-sm">
-                  <Icon className="w-5 h-5" />
+                {/* Top Icon Badge */}
+                <div className="w-8 h-8 rounded-lg bg-white text-blue-600 flex items-center justify-center shadow-xs border border-blue-50 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
+                  <Icon className="w-4 h-4" />
                 </div>
 
                 {/* Category Title */}
-                <span className="font-semibold text-blue-600 text-sm z-10">
+                <span className="font-semibold text-gray-800 text-xs sm:text-sm truncate z-10 group-hover:text-blue-600 transition-colors">
                   {category.name}
                 </span>
               </Link>
@@ -142,9 +151,16 @@ export default function CategoriesPage() {
       </section>
 
       {/* Games Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Games</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <section className="mb-10">
+        <div className="flex items-center gap-2 mb-5">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight">Games Categories</h2>
+          <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">
+            {gameCategories.length}
+          </span>
+        </div>
+
+        {/* 6 Columns Grid on Desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
           {gameCategories.map((category) => {
             const Icon = category.icon;
             const slug = getCategorySlug(category.name);
@@ -153,18 +169,18 @@ export default function CategoriesPage() {
               <Link
                 key={category.name}
                 href={`/${slug}`}
-                className="group relative flex flex-col justify-between p-4 h-28 bg-[#e8f2fe] rounded-2xl overflow-hidden hover:bg-[#d9e8fd] transition-colors duration-200"
+                className="group relative flex flex-col justify-between p-3.5 h-24 bg-gradient-to-br from-blue-50/60 to-slate-50 border border-blue-100/70 rounded-xl overflow-hidden hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
-                {/* Background Large Icon Watermark */}
-                <Icon className="absolute -right-3 -bottom-3 w-20 h-20 text-blue-200/40 pointer-events-none group-hover:scale-110 transition-transform duration-300" />
+                {/* Background Large Watermark Icon */}
+                <Icon className="absolute -right-2 -bottom-2 w-16 h-16 text-blue-500/10 pointer-events-none group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300" />
 
-                {/* Top Small Icon Container */}
-                <div className="w-9 h-9 rounded-full bg-white/80 flex items-center justify-center text-blue-600 shadow-sm">
-                  <Icon className="w-5 h-5" />
+                {/* Top Icon Badge */}
+                <div className="w-8 h-8 rounded-lg bg-white text-blue-600 flex items-center justify-center shadow-xs border border-blue-50 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
+                  <Icon className="w-4 h-4" />
                 </div>
 
                 {/* Category Title */}
-                <span className="font-semibold text-blue-600 text-sm z-10">
+                <span className="font-semibold text-gray-800 text-xs sm:text-sm truncate z-10 group-hover:text-blue-600 transition-colors">
                   {category.name}
                 </span>
               </Link>
@@ -174,13 +190,14 @@ export default function CategoriesPage() {
       </section>
 
       {/* Breadcrumb Navigation Footer */}
-      <div className="flex items-center gap-2 text-xs text-gray-500 pt-4 border-t border-gray-100">
-        <Link href="/" className="hover:underline flex items-center gap-1">
+      <div className="flex items-center gap-1.5 text-xs text-gray-500 pt-6 border-t border-gray-100">
+        <Link href="/" className="hover:text-blue-600 transition flex items-center gap-1">
           <Home className="w-3.5 h-3.5" /> Home
         </Link>
-        <span>&gt;</span>
-        <span className="text-gray-800 font-medium">Categories</span>
+        <ChevronRight className="w-3 h-3 text-gray-400" />
+        <span className="text-gray-900 font-medium">Categories</span>
       </div>
+
     </div>
   );
 }

@@ -5,8 +5,10 @@ import { useGetAppsQuery } from '../services/api';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { 
+  HiOutlineHome,
   HiOutlineViewGrid, 
   HiOutlinePuzzle, 
+  HiOutlineFolder,
   HiOutlineSearch, 
   HiX, 
   HiLogout, 
@@ -83,15 +85,18 @@ const Header = () => {
     }
   };
 
+  const isHomeActive = pathname === '/';
   const isAppsActive = pathname.startsWith('/apps');
+  const isCategoriesActive = pathname.startsWith('/categories');
   const isGamesActive = pathname.startsWith('/games');
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 font-sans">
-      <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+      {/* Updated to Grid on desktop so center nav is perfectly aligned */}
+      <div className="max-w-7xl mx-auto flex md:grid md:grid-cols-3 items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
         
         {/* Left: Brand Logo */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-start">
           <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
             <img 
               src="/appinfohublogo.png" 
@@ -101,26 +106,30 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Center: Clean Minimal Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Center: Perfectly Centered Navigation */}
+        <nav className="hidden md:flex items-center justify-center gap-8">
+          <Link 
+            href="/" 
+            className={`flex items-center gap-2 text-base font-medium transition-colors ${
+              isHomeActive 
+                ? 'text-blue-600 font-semibold' 
+                : 'text-gray-800 hover:text-black'
+            }`}
+          >
+            <HiOutlineHome className="size-5 text-gray-700" />
+            Home
+          </Link>
+
           <Link 
             href="/apps" 
             className={`flex items-center gap-2 text-base font-medium transition-colors ${
               isAppsActive 
                 ? 'text-blue-600 font-semibold' 
-                : 'text-gray-700 hover:text-black'
+                : 'text-gray-800 hover:text-black'
             }`}
           >
-            <HiOutlineViewGrid className="size-5 text-gray-500" />
+            <HiOutlineViewGrid className="size-5 text-gray-700" />
             Apps
-          </Link>
-
-          <Link 
-            href="/categories" 
-            className={`flex items-center gap-2 text-base font-medium transition-colors text-gray-700 hover:text-black`}
-          >
-            <HiOutlineViewGrid className="size-5 text-gray-500" />
-            Categories
           </Link>
 
           <Link 
@@ -128,11 +137,23 @@ const Header = () => {
             className={`flex items-center gap-2 text-base font-medium transition-colors ${
               isGamesActive 
                 ? 'text-blue-600 font-semibold' 
-                : 'text-gray-700 hover:text-black'
+                : 'text-gray-800 hover:text-black'
             }`}
           >
-            <HiOutlinePuzzle className="size-5 text-gray-500" />
+            <HiOutlinePuzzle className="size-5 text-gray-700" />
             Games
+          </Link>
+
+          <Link 
+            href="/categories" 
+            className={`flex items-center gap-2 text-base font-medium transition-colors ${
+              isCategoriesActive 
+                ? 'text-blue-600 font-semibold' 
+                : 'text-gray-800 hover:text-black'
+            }`}
+          >
+            <HiOutlineFolder className="size-5 text-gray-700" />
+            Categories
           </Link>
 
           {isAdminRoute && typeof window !== 'undefined' && localStorage.getItem('apkpac_admin_token') && (
@@ -147,7 +168,7 @@ const Header = () => {
         </nav>
 
         {/* Right: Search Toggle & Expandable Bar */}
-        <div className="flex items-center gap-3 relative" ref={searchContainerRef}>
+        <div className="flex items-center justify-end gap-3 relative" ref={searchContainerRef}>
           {showSearchInput ? (
             <form onSubmit={handleSearch} className="relative flex items-center">
               <input
@@ -177,7 +198,7 @@ const Header = () => {
             <button
               onClick={() => setShowSearchInput(true)}
               aria-label="Open Search"
-              className="p-2 text-gray-700 hover:text-black hover:bg-gray-100 rounded-full transition"
+              className="p-2 text-gray-800 hover:text-black hover:bg-gray-100 rounded-full transition"
             >
               <HiOutlineSearch className="size-6" />
             </button>
@@ -246,6 +267,16 @@ const Header = () => {
       {mobileMenu && (
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-2 shadow-lg">
           <Link 
+            href="/" 
+            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition ${
+              isHomeActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
+            }`} 
+            onClick={() => setMobileMenu(false)}
+          >
+            <HiOutlineHome className="size-5 text-gray-500" /> Home
+          </Link>
+
+          <Link 
             href="/apps" 
             className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition ${
               isAppsActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
@@ -263,6 +294,16 @@ const Header = () => {
             onClick={() => setMobileMenu(false)}
           >
             <HiOutlinePuzzle className="size-5 text-gray-500" /> Games
+          </Link>
+
+          <Link 
+            href="/categories" 
+            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition ${
+              isCategoriesActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
+            }`} 
+            onClick={() => setMobileMenu(false)}
+          >
+            <HiOutlineFolder className="size-5 text-gray-500" /> Categories
           </Link>
 
           {isAdminRoute && typeof window !== 'undefined' && localStorage.getItem('apkpac_admin_token') && (

@@ -43,7 +43,7 @@ const MainGridGameCard = ({ game }) => {
 
   return (
     <div className="flex flex-col items-start group cursor-pointer w-full">
-      <Link href={`/game/${encodeURIComponent(slug)}`} className="w-full aspect-square relative mb-2">
+      <Link href={`/app/${encodeURIComponent(slug)}`} className="w-full aspect-square relative mb-2">
         <img
           src={game.icon || '/placeholder.png'}
           alt={game.name}
@@ -52,7 +52,7 @@ const MainGridGameCard = ({ game }) => {
       </Link>
 
       <div className="w-full flex flex-col min-w-0">
-        <Link href={`/game/${encodeURIComponent(slug)}`} className="w-full">
+        <Link href={`/app/${encodeURIComponent(slug)}`} className="w-full">
           <h3 className="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-blue-600 truncate transition leading-snug">
             {game.name}
           </h3>
@@ -81,7 +81,7 @@ const TopSidebarCard = ({ game, rank }) => {
         {rank}
       </span>
 
-      <Link href={`/game/${encodeURIComponent(slug)}`} className="shrink-0">
+      <Link href={`/app/${encodeURIComponent(slug)}`} className="shrink-0">
         <img
           src={game.icon || '/placeholder.png'}
           alt={game.name}
@@ -90,7 +90,7 @@ const TopSidebarCard = ({ game, rank }) => {
       </Link>
 
       <div className="flex-1 min-w-0 pr-1">
-        <Link href={`/game/${encodeURIComponent(slug)}`}>
+        <Link href={`/app/${encodeURIComponent(slug)}`}>
           <h4 className="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-blue-600 truncate transition leading-snug">
             {game.name}
           </h4>
@@ -107,7 +107,7 @@ const TopSidebarCard = ({ game, rank }) => {
       </div>
 
       <Link
-        href={`/game/${encodeURIComponent(slug)}`}
+        href={`/app/${encodeURIComponent(slug)}`}
         className="p-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg shrink-0 transition"
         aria-label={`Download ${game.name}`}
       >
