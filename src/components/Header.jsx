@@ -116,6 +116,14 @@ const Header = () => {
           </Link>
 
           <Link 
+            href="/categories" 
+            className={`flex items-center gap-2 text-base font-medium transition-colors text-gray-700 hover:text-black`}
+          >
+            <HiOutlineViewGrid className="size-5 text-gray-500" />
+            Categories
+          </Link>
+
+          <Link 
             href="/games" 
             className={`flex items-center gap-2 text-base font-medium transition-colors ${
               isGamesActive 

@@ -3,11 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { HiDownload, HiStar } from 'react-icons/hi';
-import { isGameCategory } from '../utils/categoryTypeFilters';
 
 const AppCard = ({ app, index }) => {
   const slug = app.name ? app.name.toLowerCase().replace(/\s+/g, '-') : '';
-  const routeBase = isGameCategory(app.category) ? '/game' : '/app';
+  const routeBase = '/app';
 
   return (
     <div className="flex items-center gap-3 p-1.5 rounded-xl hover:bg-gray-50/80 transition duration-150 group">

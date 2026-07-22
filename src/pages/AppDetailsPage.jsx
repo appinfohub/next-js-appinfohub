@@ -9,9 +9,8 @@ import AppCard from '../components/AppCard';
 import { FaChevronLeft, FaChevronRight, FaDownload } from 'react-icons/fa';
 import { FaTag, FaCodeBranch, FaCalendarAlt, FaUserTie, FaShieldAlt, FaDollarSign } from 'react-icons/fa';
 
-const AppDetailsPage = ({ slug: rawSlug, pageType = 'app' }) => {
+const AppDetailsPage = ({ slug: rawSlug }) => {
   const slug = rawSlug ? String(rawSlug).toLowerCase() : '';
-  const displayType = pageType === 'game' ? 'Games' : 'Apps';
 
   // Get O(1) slug lookup map from Redux store
   const appsBySlug = useSelector((state) => state.apps.appsBySlug);
@@ -67,7 +66,7 @@ const AppDetailsPage = ({ slug: rawSlug, pageType = 'app' }) => {
   }, [reduxAllApps, desc1Category, app]);
 
   const { data: similarData } = useGetAppsQuery(
-    { category: desc1Category, limit: 12, type: pageType },
+    { category: desc1Category, limit: 12 },
     {
       skip: !desc1Category || (cachedSimilarApps && cachedSimilarApps.length > 0),
       refetchOnFocus: false,
@@ -80,7 +79,7 @@ const AppDetailsPage = ({ slug: rawSlug, pageType = 'app' }) => {
     : (similarData?.apps || []).filter(a => app && a._id !== app._id);
 
   const { data: trendingData, isLoading: loadingTrending } = useGetAppsQuery(
-    { page: 1, limit: 15, type: pageType, sortBy: 'downloads', sortOrder: 'desc' },
+    { page: 1, limit: 15, sortBy: 'downloads', sortOrder: 'desc' },
     {
       refetchOnFocus: false,
       refetchOnMountOrArgChange: false,
@@ -118,6 +117,17 @@ const AppDetailsPage = ({ slug: rawSlug, pageType = 'app' }) => {
 
   if (error || !app) return <div className="p-8 text-center text-lg font-semibold">App not found.</div>;
 
+  const currentCategoryName = (() => {
+    let categoryValue = app.category;
+    if (app.description1) {
+      const match = app.description1.match(/<td[^>]*>\s*Category\s*<\/td>\s*<td[^>]*>(.*?)<\/td>/i);
+      if (match) categoryValue = match[1];
+    }
+    return categoryValue || 'App';
+  })();
+
+  const categorySlug = currentCategoryName.toLowerCase().trim().replace(/\s+/g, '-');
+
   return (
     <div className="max-w-6xl mx-auto px-4 mt-6 mb-16 font-sans text-gray-900">
       <div className="flex flex-col lg:flex-row gap-12">
@@ -131,16 +141,11 @@ const AppDetailsPage = ({ slug: rawSlug, pageType = 'app' }) => {
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-gray-900 mb-2 leading-tight">
                 {app.name}
               </h1>
-              <a href="#category" className="text-blue-600 font-medium hover:underline text-base inline-block mb-4">
-                {(() => {
-                  let categoryValue = app.category;
-                  if (app.description1) {
-                    const match = app.description1.match(/<td[^>]*>\s*Category\s*<\/td>\s*<td[^>]*>(.*?)<\/td>/i);
-                    if (match) categoryValue = match[1];
-                  }
-                  return categoryValue || displayType.slice(0, -1);
-                })()}
-              </a>
+              
+              {/* Category Link */}
+              <Link href={`/${categorySlug}`} className="text-blue-600 font-medium hover:underline text-base inline-block mb-4">
+                {currentCategoryName}
+              </Link>
 
               {/* Stats Bar */}
               <div className="flex items-center gap-6 text-sm text-gray-600">
@@ -293,56 +298,55 @@ const AppDetailsPage = ({ slug: rawSlug, pageType = 'app' }) => {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">No related {displayType.toLowerCase()} found.</p>
+              <p className="text-sm text-gray-500">No related items found.</p>
             )}
           </div>
         </div>
 
-      {/* Sidebar Ranking Area with Next.js Link clickable rows */}
-<div className="w-full lg:w-80 flex-shrink-0">
-  <h2 className="text-2xl font-bold text-gray-900 mb-6">
-    Trending {displayType}
-  </h2>
-  
-  <div className="flex flex-col gap-4">
-    {loadingTrending ? (
-      <div className="text-sm text-gray-500">Loading ranking list...</div>
-    ) : (
-      trendingApps.map((item, index) => {
-        // Create a URL slug from the app name if item.slug is not provided
-        const itemSlug = item.slug || item.name?.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        {/* Sidebar Ranking Area */}
+        <div className="w-full lg:w-80 flex-shrink-0">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Trending
+          </h2>
+          
+          <div className="flex flex-col gap-4">
+            {loadingTrending ? (
+              <div className="text-sm text-gray-500">Loading ranking list...</div>
+            ) : (
+              trendingApps.map((item, index) => {
+                const itemSlug = item.slug || item.name?.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
-        return (
-          <Link
-            key={item._id || index}
-            href={`/${pageType}/${itemSlug}`}
-            className="flex items-center gap-3 py-1.5 px-2 hover:bg-gray-50 rounded-xl transition-colors group cursor-pointer"
-          >
-            <span className="text-gray-400 font-semibold text-sm w-4 text-center flex-shrink-0">
-              {index + 1}
-            </span>
-            <img
-              src={item.icon}
-              alt={item.name}
-              className="w-12 h-12 rounded-xl object-cover bg-gray-100 flex-shrink-0"
-            />
-            <div className="flex-1 min-w-0">
-              <h4 className="text-sm font-bold text-gray-900 truncate leading-tight group-hover:text-blue-600">
-                {item.name}
-              </h4>
-              <p className="text-xs text-gray-500 truncate mt-0.5">
-                {item.category || displayType.slice(0, -1)} <span className="text-gray-400">★ {item.rating || '4.5'}</span>
-              </p>
-            </div>
-            <div className="p-2 text-gray-400 group-hover:text-gray-700 bg-gray-50 group-hover:bg-gray-100 rounded-lg flex-shrink-0 transition-colors">
-              <FaDownload className="text-xs" />
-            </div>
-          </Link>
-        );
-      })
-    )}
-  </div>
-</div>
+                return (
+                  <Link
+                    key={item._id || index}
+                    href={`/${itemSlug}`}
+                    className="flex items-center gap-3 py-1.5 px-2 hover:bg-gray-50 rounded-xl transition-colors group cursor-pointer"
+                  >
+                    <span className="text-gray-400 font-semibold text-sm w-4 text-center flex-shrink-0">
+                      {index + 1}
+                    </span>
+                    <img
+                      src={item.icon}
+                      alt={item.name}
+                      className="w-12 h-12 rounded-xl object-cover bg-gray-100 flex-shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-bold text-gray-900 truncate leading-tight group-hover:text-blue-600">
+                        {item.name}
+                      </h4>
+                      <p className="text-xs text-gray-500 truncate mt-0.5">
+                        {item.category || 'App'} <span className="text-gray-400">★ {item.rating || '4.5'}</span>
+                      </p>
+                    </div>
+                    <div className="p-2 text-gray-400 group-hover:text-gray-700 bg-gray-50 group-hover:bg-gray-100 rounded-lg flex-shrink-0 transition-colors">
+                      <FaDownload className="text-xs" />
+                    </div>
+                  </Link>
+                );
+              })
+            )}
+          </div>
+        </div>
 
       </div>
     </div>

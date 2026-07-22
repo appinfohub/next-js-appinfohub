@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useGetCategoriesQuery } from '../services/api';
+import { useGetCategoriesQuery, useGetAppsQuery } from '../services/api';
 import { 
   FaComments, 
   FaUsers, 
@@ -60,8 +60,9 @@ function slugify(name = '') {
 
 function CategoriesSection() {
   const { data, isLoading, error } = useGetCategoriesQuery();
+  const { data: appsData } = useGetAppsQuery({ page: 1, limit: 500 });
 
-  // Normalize API response to an array of names
+  // Normalize API response to an array of names from categories endpoint
   const apiCategories = React.useMemo(() => {
     if (!data) return null;
     const list = Array.isArray(data) ? data : data.categories || [];
@@ -70,18 +71,30 @@ function CategoriesSection() {
       .filter((c) => c.name && c.name.trim().length > 0);
   }, [data]);
 
+  // Fallback: derive categories from apps data when categories endpoint is empty
+  const appDerivedCategories = React.useMemo(() => {
+    const apps = appsData?.apps || appsData || [];
+    const set = new Set();
+    for (const a of apps) {
+      if (a?.category) set.add(String(a.category).trim());
+    }
+    return Array.from(set);
+  }, [appsData]);
+
   const categories = React.useMemo(() => {
-    const source = apiCategories && apiCategories.length > 0
+    const source = (apiCategories && apiCategories.length > 0)
       ? apiCategories.map((c) => c.name)
-      : DEFAULT_TOP_CATEGORIES;
-      
+      : (appDerivedCategories && appDerivedCategories.length > 0)
+        ? appDerivedCategories
+        : DEFAULT_TOP_CATEGORIES;
+
     const uniq = [];
     for (const name of source) {
       if (!uniq.includes(name)) uniq.push(name);
       if (uniq.length >= 12) break;
     }
     return uniq;
-  }, [apiCategories]);
+  }, [apiCategories, appDerivedCategories]);
 
   return (
     <section className="w-full max-w-7xl mx-auto my-8 px-4 font-sans">

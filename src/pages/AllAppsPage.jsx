@@ -8,15 +8,86 @@ import { useGetAppsQuery } from '../services/api';
 import AdsSection from '../components/AdsSection';
 import { filterAppsByType } from '../utils/categoryTypeFilters';
 
+// Complete Mapping of Slugs to Category Titles for all Apps & Games
 const categoryMap = {
-  'top-apps': 'top app',
-  desktop: 'desktop',
-  'popular-apps': 'popular',
-  games: 'game',
-  finance: 'finance',
-  tools: 'tool',
-  entertainment: 'entertainment',
-  business: 'business',
+  // General & Top Slugs
+  'top-apps': 'Top Apps',
+  'popular-apps': 'Popular Apps',
+  
+  // Games Categories
+  action: 'Action',
+  adventure: 'Adventure',
+  board: 'Board',
+  card: 'Card',
+  casual: 'Casual',
+  demo: 'Demo',
+  music: 'Music',
+  puzzle: 'Puzzle',
+  'role-playing': 'Role Playing',
+  role_playing: 'Role Playing',
+  sports: 'Sports',
+  word: 'Word',
+  arcade: 'Arcade',
+  racing: 'Racing',
+  strategy: 'Strategy',
+  educational: 'Educational',
+  casino: 'Casino',
+  simulation: 'Simulation',
+  trivia: 'Trivia',
+
+  // Apps Categories
+  desktop: 'Desktop',
+  finance: 'Finance',
+  entertainment: 'Entertainment',
+  communication: 'Communication',
+  tools: 'Tools',
+  shopping: 'Shopping',
+  food: 'Food',
+  'food-drink': 'Food & Drink',
+  food_drink: 'Food & Drink',
+  audio: 'Audio',
+  'music-audio': 'Music & Audio',
+  music_audio: 'Music & Audio',
+  personalization: 'Personalization',
+  lifestyle: 'Lifestyle',
+  travel: 'Travel',
+  'travel-local': 'Travel & Local',
+  travel_local: 'Travel & Local',
+  maps: 'Maps',
+  'maps-navigation': 'Maps & Navigation',
+  maps_navigation: 'Maps & Navigation',
+  productivity: 'Productivity',
+  video: 'Video',
+  'video-players': 'Video Players',
+  video_players: 'Video Players',
+  education: 'Education',
+  business: 'Business',
+  social: 'Social',
+  medical: 'Medical',
+  reference: 'Reference',
+  'books-reference': 'Books & Reference',
+  books_reference: 'Books & Reference',
+  weather: 'Weather',
+  housing: 'Housing',
+  'house-home': 'House & Home',
+  house_home: 'House & Home',
+  art: 'Art',
+  'art-design': 'Art & Design',
+  art_design: 'Art & Design',
+  news: 'News',
+  'news-magazines': 'News & Magazines',
+  news_magazines: 'News & Magazines',
+  vehicles: 'Vehicles',
+  'auto-vehicles': 'Auto & Vehicles',
+  auto_vehicles: 'Auto & Vehicles',
+  photography: 'Photography',
+  dating: 'Dating',
+  comics: 'Comics',
+  beauty: 'Beauty',
+  parenting: 'Parenting',
+  'health-fitness': 'Health & Fitness',
+  health_fitness: 'Health & Fitness',
+  events: 'Events',
 };
 
 const parseDownloads = (str = '') => {
@@ -32,7 +103,7 @@ const MainGridAppCard = ({ app }) => {
 
   return (
     <div className="flex flex-col items-start group cursor-pointer w-full">
-      <Link href={`/${encodeURIComponent(slug)}`} className="w-full aspect-square relative mb-2">
+      <Link href={`/app/${encodeURIComponent(slug)}`} className="w-full aspect-square relative mb-2">
         <img
           src={app.icon || '/placeholder.png'}
           alt={app.name}
@@ -105,11 +176,21 @@ const TopSidebarCard = ({ app, rank }) => {
 
 const AllAppsPage = () => {
   const params = useParams();
-  const slug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug || '';
-  const categoryKey = categoryMap[slug] || slug;
-  const categoryTitle = slug
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (l) => l.toUpperCase()) || 'Apps';
+  
+  // Normalize route slug (handles array/string & converts underscores or hyphens)
+  const rawSlug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug || '';
+  const normalizedSlug = rawSlug.toLowerCase().trim();
+
+  // Find Category Title
+  const categoryTitle =
+    categoryMap[normalizedSlug] ||
+    normalizedSlug
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, (l) => l.toUpperCase()) ||
+    'Apps';
+
+  // API lookup category key
+  const categoryKey = categoryTitle;
 
   const [currentPage, setCurrentPage] = useState(1);
   const mainAppsLimit = 42;
@@ -158,7 +239,7 @@ const AllAppsPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <section className="lg:col-span-8">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
-            {categoryTitle} Apps
+            {categoryTitle}
           </h1>
 
           {isMainLoading ? (

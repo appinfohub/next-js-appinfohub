@@ -5,14 +5,15 @@ import { verifyAdmin } from '@/backend/middleware/auth';
 
 const APP_CATEGORIES = [
   'Top Apps', 'Popular Apps', 'Desktop', 'Finance', 'Entertainment', 'Communication', 'Tools',
-  'Shopping', 'Food', 'Audio', 'Personalization', 'Lifestyle', 'Travel', 'Maps', 'Productivity',
-  'Video', 'Education', 'Business', 'Social', 'Medical', 'Reference', 'Weather', 'Housing',
-  'Art', 'News', 'Vehicles', 'Photography', 'Dating', 'Comics', 'Beauty', 'Parenting'
+  'Shopping', 'Food', 'Food & Drink', 'Audio', 'Music & Audio', 'Personalization', 'Lifestyle',
+  'Travel', 'Maps', 'Maps & Navigation', 'Productivity', 'Video', 'Education', 'Business', 'Social',
+  'Medical', 'Reference', 'Weather', 'Housing', 'Art', 'News', 'News & Magazines', 'Vehicles',
+  'Photography', 'Dating', 'Comics', 'Beauty', 'Parenting'
 ];
 
 const GAME_CATEGORIES = [
   'Action', 'Adventure', 'Board', 'Card', 'Casual', 'Demo', 'Music', 'Puzzle', 'Role Playing',
-  'Sports', 'Word', 'Arcade', 'Racing', 'Strategy', 'Educational', 'Casino'
+  'Sports', 'Word', 'Arcade', 'Racing', 'Simulation', 'Strategy', 'Educational', 'Casino'
 ];
 
 const normalize = (value) => String(value || '').trim().toLowerCase();

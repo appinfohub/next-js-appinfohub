@@ -1,27 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects() {
-    // Top 12 category slugs — redirect to the apps category pages
-    const categories = [
-      'communication',
-      'social',
-      'entertainment',
-      'music-audio',
-      'news-magazines',
-      'finance',
-      'shopping',
-      'maps-navigation',
-      'tools',
-      'food-drink',
-      'personalization',
-      'weather',
+  async rewrites() {
+    return [
+      {
+        // Matches any root-level path except system/static routes
+        source: '/:category((?!api|_next|static|favicon.ico|app|categories|placeholder.png).*)',
+        destination: '/apps/:category',
+      },
     ];
-
-    return categories.map((c) => ({
-      source: `/${c}`,
-      destination: `/apps/${c}`,
-      permanent: false,
-    }));
   },
 };
 

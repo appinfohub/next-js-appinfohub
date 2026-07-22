@@ -22,6 +22,7 @@ const GAME_CATEGORIES = new Set([
   'Word',
   'Arcade',
   'Racing',
+  'Simulation',
   'Strategy',
   'Educational',
   'Casino',
