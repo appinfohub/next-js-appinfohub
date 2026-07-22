@@ -8,6 +8,29 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const getPublicIdFromFilename = (filename = '') => {
+  return String(filename)
+    .replace(/\.[^.]*$/, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]+/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
+const getFolderFromAppName = (appName = '') => {
+  const folder = String(appName)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]+/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  return folder || 'appinfohub';
+};
+
 export async function POST(req) {
   try {
     const admin = verifyAdmin(req);
@@ -17,6 +40,8 @@ export async function POST(req) {
 
     const formData = await req.formData();
     const files = formData.getAll('images');
+    const appName = formData.get('appName') || formData.get('name') || '';
+    const folderName = getFolderFromAppName(appName);
 
     if (!files || !files.length) {
       return NextResponse.json({ error: 'No images uploaded' }, { status: 400 });
@@ -27,10 +52,17 @@ export async function POST(req) {
     for (const file of files) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
+      const publicId = getPublicIdFromFilename(file.name);
 
       const uploadResult = await new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
-          { folder: 'apkpac' },
+          {
+            folder: folderName,
+            public_id: publicId,
+            overwrite: true,
+            unique_filename: false,
+            use_filename: false,
+          },
           (error, result) => {
             if (error) return reject(error);
             resolve(result);

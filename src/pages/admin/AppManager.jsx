@@ -142,6 +142,7 @@ const AppManager = () => {
           // Upload icon to backend
           const fd = new FormData();
           fd.append('icon', iconFile);
+          fd.append('appName', form.name);
           const token = localStorage.getItem('apkpac_admin_token');
           const res = await axios.post(`${API}/apps/upload-icon`, fd, {
             headers: {
@@ -162,6 +163,7 @@ const AppManager = () => {
         try {
           const fd = new FormData();
           imageFiles.forEach((img) => fd.append('images', img));
+          fd.append('appName', form.name);
           const token = localStorage.getItem('apkpac_admin_token');
           const res = await axios.post(`${API}/apps/upload-images`, fd, {
             headers: {
