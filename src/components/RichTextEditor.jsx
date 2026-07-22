@@ -32,7 +32,7 @@ const RichTextEditor = ({ value = '', onChange, placeholder = 'Enter content...'
         ref={editorRef}
         contentEditable
         suppressContentEditableWarning
-        className="min-h-[180px] rounded border border-gray-300 p-3 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white text-sm leading-6"
+        className="min-h-[180px] max-h-[360px] rounded border border-gray-300 p-3 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white text-sm leading-6 break-words whitespace-pre-wrap overflow-auto"
         onInput={handleInput}
         onBlur={handleInput}
       />
