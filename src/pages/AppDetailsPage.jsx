@@ -9,6 +9,7 @@ import AppCard from '../components/AppCard';
 import { FaChevronLeft, FaChevronRight, FaDownload } from 'react-icons/fa';
 import { FaTag, FaCodeBranch, FaCalendarAlt, FaUserTie, FaShieldAlt, FaDollarSign } from 'react-icons/fa';
 import { HiStar } from 'react-icons/hi';
+import { BsShieldCheck } from "react-icons/bs";
 
 const AppDetailsPage = ({ slug: rawSlug }) => {
   const slug = rawSlug ? String(rawSlug).toLowerCase() : '';
@@ -132,17 +133,17 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
   return (
     <div className="max-w-6xl mx-auto px-4 mt-6 mb-16 font-sans text-gray-900">
       <div className="flex flex-col lg:flex-row gap-12">
-        
+
         {/* Main Content Area */}
         <div className="flex-1 min-w-0">
-          
+
           {/* Header Info Section */}
           <div className="flex justify-between items-start gap-4 mb-6">
             <div className="flex-1">
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-gray-900 mb-2 leading-tight">
                 {app.name}
               </h1>
-              
+
               {/* Category Link */}
               <Link href={`/${categorySlug}`} className="text-blue-600 font-medium hover:underline text-base inline-block mb-4">
                 {currentCategoryName}
@@ -160,9 +161,17 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
                   <div className="text-xs text-gray-500">Installs</div>
                 </div>
                 <div className="h-8 w-px bg-gray-200" />
-                <div>
-                  <div className="font-bold text-gray-900 text-base">Varies</div>
-                  <div className="text-xs text-gray-500">Version</div>
+                <div className="flex items-center gap-2">
+                 
+                  <div>
+                    <div className="font-bold text-gray-900 text-base leading-none">
+                      Varies with device
+                    </div>
+                    <div className="text-xs text-gray-500 leading-none mt-1">
+                      Version
+                    </div>
+                  </div>
+                   <BsShieldCheck className="w-5 h-5 text-green-600" />
                 </div>
               </div>
             </div>
@@ -217,8 +226,8 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
             </div>
           )}
 
-          {/* Table Specifications */}
-          {app.description1 && (
+           {/* Table Specifications */}
+          {/* {app.description1 && (
             <div className="my-8 overflow-x-auto">
               <div className="w-full rounded-2xl border border-gray-100 bg-white p-2">
                 <table className="w-full text-sm text-gray-800 border-collapse">
@@ -239,7 +248,7 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
                           else if (/developer/i.test(key)) icon = <FaUserTie className="inline mr-2 text-indigo-500" />;
                           else if (/security/i.test(key)) icon = <FaShieldAlt className="inline mr-2 text-yellow-500" />;
                           else if (/price/i.test(key)) icon = <FaDollarSign className="inline mr-2 text-gray-500" />;
-                          
+
                           rows.push(
                             <tr className="border-b border-gray-100 last:border-b-0" key={key}>
                               <td className="py-3 px-3 font-semibold w-40 text-gray-700">{icon}{key}</td>
@@ -254,7 +263,7 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
                 </table>
               </div>
             </div>
-          )}
+          )}  */}
 
           {/* Descriptions */}
           {app.description2 && (
@@ -289,51 +298,51 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
             />
           </div>
 
-      {/* You May Like Grid Section */}
-<div className="mt-12">
-  <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Like</h2>
-  {desc1MatchedApps.length > 0 ? (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-6">
-      {desc1MatchedApps.map((a, idx) => {
-        const slug = a.name ? a.name.toLowerCase().replace(/\s+/g, '-') : '';
-        return (
-          <Link
-            key={a._id || idx}
-            href={`/app/${encodeURIComponent(slug)}`}
-            className="group flex flex-col items-start text-left transition-transform duration-150 hover:-translate-y-1"
-          >
-            {/* App Icon */}
-            <div className="w-full aspect-square rounded-[22%] overflow-hidden bg-gray-100 mb-2 shadow-sm border border-gray-100/60">
-              <img
-                src={a.icon || '/placeholder.png'}
-                alt={a.name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-              />
-            </div>
+          {/* You May Like Grid Section */}
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Like</h2>
+            {desc1MatchedApps.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-6">
+                {desc1MatchedApps.map((a, idx) => {
+                  const slug = a.name ? a.name.toLowerCase().replace(/\s+/g, '-') : '';
+                  return (
+                    <Link
+                      key={a._id || idx}
+                      href={`/app/${encodeURIComponent(slug)}`}
+                      className="group flex flex-col items-start text-left transition-transform duration-150 hover:-translate-y-1"
+                    >
+                      {/* App Icon */}
+                      <div className="w-full aspect-square rounded-[22%] overflow-hidden bg-gray-100 mb-2 shadow-sm border border-gray-100/60">
+                        <img
+                          src={a.icon || '/placeholder.png'}
+                          alt={a.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                        />
+                      </div>
 
-            {/* App Name */}
-            <h3 className="w-full text-sm font-semibold text-gray-900 truncate leading-tight group-hover:text-blue-600 transition-colors">
-              {a.name}
-            </h3>
+                      {/* App Name */}
+                      <h3 className="w-full text-sm font-semibold text-gray-900 truncate leading-tight group-hover:text-blue-600 transition-colors">
+                        {a.name}
+                      </h3>
 
-            {/* Category */}
-            <p className="text-xs text-gray-500 mt-0.5 truncate w-full">
-              {a.category || 'Casual'}
-            </p>
+                      {/* Category */}
+                      <p className="text-xs text-gray-500 mt-0.5 truncate w-full">
+                        {a.category || 'Casual'}
+                      </p>
 
-            {/* Rating & Star */}
-            <div className="flex items-center gap-1 mt-1 text-xs text-gray-600 font-medium">
-              <span>{a.rating ? Number(a.rating).toFixed(1) : '4.5'}</span>
-              <HiStar className="size-3.5 text-gray-500" />
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-  ) : (
-    <p className="text-sm text-gray-500">No related items found.</p>
-  )}
-</div>
+                      {/* Rating & Star */}
+                      <div className="flex items-center gap-1 mt-1 text-xs text-gray-600 font-medium">
+                        <span>{a.rating ? Number(a.rating).toFixed(1) : '4.5'}</span>
+                        <HiStar className="size-3.5 text-gray-500" />
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">No related items found.</p>
+            )}
+          </div>
         </div>
 
         {/* Sidebar Ranking Area */}
@@ -341,7 +350,7 @@ const AppDetailsPage = ({ slug: rawSlug }) => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Trending
           </h2>
-          
+
           <div className="flex flex-col gap-4">
             {loadingTrending ? (
               <div className="text-sm text-gray-500">Loading ranking list...</div>
